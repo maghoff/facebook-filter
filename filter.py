@@ -2,9 +2,7 @@
 
 # Remember to sudo apt-get install python-vobject
 
-import cgi
-import cgitb
-cgitb.enable()
+#import cgi; import cgitb; cgitb.enable()
 
 import vobject, urllib2, cgi
 
@@ -12,6 +10,9 @@ import vobject, urllib2, cgi
 
 def execute_filter(src_uri, acceptable):
 	calendar = None
+
+	if src_uri.startswith('webcal:'):
+		src_uri = 'http:' + src_uri[7:]
 
 	src = urllib2.urlopen(src_uri)
 
@@ -42,15 +43,33 @@ def print_form():
 <!DOCTYPE html>
 <html><head>
 <title>Facebook events filter</title>
+<style type="text/css">
+input {
+	border: 1px solid black;
+	background: #EEF;
+}
+
+.tip {
+	font-family: "Helvetica", "Arial", sans-serif;
+	font-size: 70%;
+	border: 1px solid #777;
+	background-color: #FFC;
+	padding: 4px;
+	margin-top: 1px;
+	width: 25em;
+	color: #555;
+}
+</style>
 </head><body>
 <h1>Facebook events filter</h1>
 
 <form method="GET">
 <label for="src">Your Facebook event feed URI:</label><br/>
-<input name="src" type="text" size="90" placeholder="http://www.facebook.com/ical/u.php?uid=...&key=..."></input><br/>
+<input name="src" type="text" size="90" placeholder="webcal://www.facebook.com/ical/u.php?uid=...&key=..."></input><br/>
 
-<p>Include only events with the following RSVP status:</p>
-<p>
+<div class="tip">You can find your Facebook event feed URI by clicking the "Export"-link on <a href="https://www.facebook.com/events/">your events page</a></div>
+
+<p>Include only events with the following RSVP statuses:<br/>
 <input name="accept" type="checkbox" value="ACCEPTED" checked></input>Attending<br/>
 <input name="accept" type="checkbox" value="TENTATIVE" checked></input>Maybe attending<br/>
 <input name="accept" type="checkbox" value="DECLINED"></input>Not attending<br/>
