@@ -59,6 +59,17 @@ input {
 	width: 25em;
 	color: #555;
 }
+
+.footer {
+	font-family: "Helvetica", "Arial", sans-serif;
+	font-size: 70%;
+	border-top: 1px solid #777;
+	color: #555;
+	width: 25em;
+	padding: 4px;
+	margin-top: 2em;
+}
+
 </style>
 </head><body>
 <h1>Facebook events filter</h1>
@@ -77,6 +88,8 @@ input {
 </p>
 <input type="submit" value="Get filtered feed"></input>
 </form>
+
+<div class="footer">Go contribute to the <a href="https://bitbucket.org/maghoff/facebook-filter">source code</a>!</div>
 </body></html>
 """
 
