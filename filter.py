@@ -33,6 +33,7 @@ def execute_filter(src_uri, acceptable):
 			outcal.add(event)
 
 	print "Content-Type: text/calendar;encoding=utf-8"
+	print "Content-Disposition: attachment;filename=myfbfilter.ics"
 	print
 	print outcal.serialize()
 

@@ -5,4 +5,8 @@ api_version: 1
 
 handlers:
 - url: /
+  static_files: form.html
+  upload: form.html
+
+- url: /?.*
   script: filter.py
