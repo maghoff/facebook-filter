@@ -79,7 +79,55 @@ button[type="submit"] {
 	cursor: pointer;
 }
 
+.warning {
+	color: hsl(0, 40%, 20%);
+}
+
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+<script>
+$(function() {
+	$("input[name='src']").focus();
+
+	// Getting the filtered calendar when pressing enter isn't such good useability for this app
+	$("form").submit(function () { return false; });
+
+	var reslist = $("#resultlist");
+
+	function updateResultList() {
+		reslist.empty();
+
+		var src = $("input[name='src']").val();
+
+		if (src.indexOf("http:") !== 0 && src.indexOf("webcal:") !== 0) {
+			reslist.append($("<p class='warning'>The URL you have entered in step 1 does not appear to be valid</p>"));
+		} else {
+			var base_path = $(location).attr('href');
+			if (base_path.slice(-1) !== '/') {
+				base_path = base_path + '/';
+			}
+			var query_arguments = $("form").serialize();
+			var url = base_path + 'filter?' + query_arguments;
+
+			reslist.append($("<li>Copy or click the http-link: </li>").append($("<a/>").attr('href', url).text(url.slice(0, 30) + "...")));
+
+			var webcal_url = 'webcal' + url.slice(url.indexOf(':'));
+			reslist.append($("<li>Copy or click the webcal-link: </li>").append($("<a/>").attr('href', webcal_url).text(webcal_url.slice(0, 30) + "...")));
+
+			var gcal_base = "http://www.google.com/calendar/render?cid=";
+			var gcal_url = gcal_base + encodeURIComponent(url);
+			reslist.append($("<li/>").append($("<a target='_blank'/>").attr('href', gcal_url).text("Add to Google Calendar")));
+		}
+	}
+
+	updateResultList();
+	$("input").change(updateResultList);
+	$("input[type='text']").keyup(updateResultList);
+	$("input[type='text']").mouseup(updateResultList);
+});
+</script>
 
 </head><body>
 <h1>Get Facebook events in your calendar</h1>
@@ -92,7 +140,7 @@ button[type="submit"] {
 <td>1.</td>
 <td>
 <p>Find your Facebook calendar export URL by clicking on the "Export"-link
-on <a href="https://www.facebook.com/events/" target="blank">your events page</a>.</p>
+on <a href="https://www.facebook.com/events/" target="_blank">your events page</a>.</p>
 
 <p>
 Put the export URL into this box:<br/>
@@ -106,10 +154,10 @@ Put the export URL into this box:<br/>
 <td>2.</td>
 <td>
 <p>Choose which events you would like to see by RSVP status:<br/>
-<input name="accept" type="checkbox" value="ACCEPTED" checked></input> Attending<br/>
-<input name="accept" type="checkbox" value="TENTATIVE" checked></input> Maybe attending<br/>
-<input name="accept" type="checkbox" value="DECLINED"></input> Not attending<br/>
-<input name="accept" type="checkbox" value="NEEDS-ACTION" checked></input> Awaiting reply<br/>
+<label for="acce"><input id="acce" name="accept" type="checkbox" value="ACCEPTED" checked></input> Attending</label><br/>
+<label for="tent"><input id="tent" name="accept" type="checkbox" value="TENTATIVE" checked></input> Maybe attending</label><br/>
+<label for="decl"><input id="decl" name="accept" type="checkbox" value="DECLINED"></input> Not attending</label><br/>
+<label for="need"><input id="need" name="accept" type="checkbox" value="NEEDS-ACTION" checked></input> Awaiting reply</label><br/>
 </p>
 </td>
 </tr>
@@ -118,14 +166,15 @@ Put the export URL into this box:<br/>
 <td>3.</td>
 <td>
 <p>Get your filtered calendar in any of the following ways:</p>
-<ul>
+<ul id="resultlist">
 <li><button type="submit"><span>Download calendar</span></button></li>
 </ul>
+<p>Try adding the calendar by URL to your desktop or mobile calendar software.</p>
 </td>
 </tr>
 
 </table>
 </form>
 
-<div class="footer">Go contribute to the <a href="https://bitbucket.org/maghoff/facebook-filter">source code</a>!</div>
+<div class="footer">4. Go contribute to the <a href="https://bitbucket.org/maghoff/facebook-filter">source code</a> :)</div>
 </body></html>
