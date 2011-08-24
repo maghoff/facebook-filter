@@ -23,7 +23,7 @@ input {
 
 .footer {
 	font-size: 80%;
-	color: hsl(0, 40%, 20%);
+	color: hsl(0, 40%, 10%);
 	margin-top: 2em;
 }
 
@@ -32,8 +32,8 @@ table {
 }
 
 td {
-	border-top: 6px solid hsl(0, 40%, 20%);
-	border-bottom: 6px solid hsl(0, 40%, 20%);
+	border-top: 6px solid hsl(0, 40%, 10%);
+	border-bottom: 6px solid hsl(0, 40%, 10%);
 
 	vertical-align: top;
 	padding: 10px;
@@ -50,7 +50,7 @@ a {
 }
 
 a:visited {
-	color: hsl(0, 40%, 20%);
+	color: hsl(0, 40%, 10%);
 }
 
 input[type="text"] {
@@ -80,7 +80,7 @@ button[type="submit"] {
 }
 
 .warning {
-	color: hsl(0, 40%, 20%);
+	color: hsl(0, 40%, 10%);
 }
 
 </style>
@@ -110,15 +110,31 @@ $(function() {
 			}
 			var query_arguments = $("form").serialize();
 			var url = base_path + 'filter?' + query_arguments;
-
-			reslist.append($("<li>Copy or click the http-link: </li>").append($("<a/>").attr('href', url).text(url.slice(0, 30) + "...")));
-
 			var webcal_url = 'webcal' + url.slice(url.indexOf(':'));
-			reslist.append($("<li>Copy or click the webcal-link: </li>").append($("<a/>").attr('href', webcal_url).text(webcal_url.slice(0, 30) + "...")));
-
 			var gcal_base = "http://www.google.com/calendar/render?cid=";
 			var gcal_url = gcal_base + encodeURIComponent(url);
-			reslist.append($("<li/>").append($("<a target='_blank'/>").attr('href', gcal_url).text("Add to Google Calendar")));
+
+			reslist.append(
+			    $("<li/>").append(
+			        $("<a target='_blank'/>")
+			            .attr('href', gcal_url)
+			            .text("Add to Google Calendar")
+			    ).append(" (Recommended for Android)")
+			);
+			reslist.append(
+			    $("<li>Copy or click </li>").append(
+			        $("<a/>")
+			            .attr('href', webcal_url)
+			            .text("the webcal://-link")
+			    ).append(" (Recommended for Mac OS X)")
+			);
+			reslist.append(
+			    $("<li>Copy or click </li>").append(
+			        $("<a/>")
+			            .attr('href', url)
+			            .text("the http://-link")
+			    )
+			);
 		}
 	}
 
@@ -169,7 +185,7 @@ Put the export URL into this box:<br/>
 <ul id="resultlist">
 <li><button type="submit"><span>Download calendar</span></button></li>
 </ul>
-<p>Try adding the calendar by URL to your desktop or mobile calendar software.</p>
+<p>Try adding the calendar to your desktop or mobile calendar software by copying the http-link into it.</p>
 </td>
 </tr>
 
