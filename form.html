@@ -10,20 +10,14 @@
 body {
 	font-family: 'Istok Web', sans-serif;
 	width: 40em;
-	background-color: hsl(0, 40%, 30%);
-}
-
-h1 {
 }
 
 input {
 	border: 1px solid black;
-	background: #EEF;
 }
 
 .footer {
 	font-size: 80%;
-	color: hsl(0, 40%, 10%);
 	margin-top: 2em;
 }
 
@@ -32,8 +26,8 @@ table {
 }
 
 td {
-	border-top: 6px solid hsl(0, 40%, 20%);
-	border-bottom: 6px solid hsl(0, 40%, 20%);
+	border-top: 6px solid hsl(240, 40%, 90%);
+	border-bottom: 6px solid hsl(240, 40%, 90%);
 
 	vertical-align: top;
 	padding: 10px;
@@ -42,15 +36,7 @@ td {
 td:nth-child(1) {
 	font-size: 600%;
 	text-align: right;
-	color: hsl(0, 40%, 50%);
-}
-
-a {
-	color: hsl(0, 40%, 50%);
-}
-
-a:visited {
-	color: hsl(0, 40%, 10%);
+	color: hsl(120, 40%, 60%);
 }
 
 input[type="text"] {
@@ -68,19 +54,8 @@ input[type="checkbox"] {
 	height: 14px;
 }
 
-button[type="submit"] {
-	border: none;
-	background: none;
-	font-family: inherit;
-	font-size: inherit;
-
-	text-decoration: underline;
-	color: hsl(0, 40%, 50%);
-	cursor: pointer;
-}
-
 .warning {
-	color: hsl(0, 40%, 10%);
+	color: hsl(0, 40%, 50%);
 }
 
 </style>
@@ -196,12 +171,14 @@ Put the export URL into this box:<br/>
 <p>Get your filtered calendar in any of the following ways:</p>
 <ul id="resultlist">
 <li><button type="submit"><span>Download calendar</span></button></li>
+<li><span class="warning">Other methods are available with JavaScript enabled</span></li>
 </ul>
 <p>Try adding the calendar to your desktop or mobile calendar software by copying the http-link into it.</p>
 </td>
 </tr>
 
 </table>
+
 </form>
 
 <div class="footer">4. Go contribute to the <a href="https://bitbucket.org/maghoff/facebook-filter">source code</a> :)</div>
